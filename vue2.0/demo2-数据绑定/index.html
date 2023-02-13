@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+  </head>
+  <body>
+    <div id="app">
+      单向数据绑定 <input :value='message' />
+      双向数据绑定 <input v-model:value='message' />
+      双向数据绑定简写 <input v-model='message' />
+      <br />
+      <h6>表单类元素<存在value值>才可以使用 v-model </h6>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      new Vue({
+        el: "#app",
+        data: {
+          message: "Hello, Vue!",
+        },
+      });
+    </script>
+  </body>
+</html>
