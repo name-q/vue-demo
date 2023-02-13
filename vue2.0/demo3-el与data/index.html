@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{message}}</h1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      // Option 1
+      // new Vue({
+      //   el: "#app",
+      //   data: {
+      //     message: "Hello, Vue!",
+      //   },
+      // });
+
+      // Option 2
+      // const vue = new Vue({
+      //   data: {
+      //     message: "Hello, Vue!",
+      //   },
+      // });
+      // vue.$mount("#app");
+
+      // Option 3
+      // new Vue({
+      //   el: "#app",
+      //   data: () => {
+      //     console.log(this,'<<<<this指向window')
+      //     return {
+      //       message: "Hello, Vue!",
+      //     };
+      //   },
+      // });
+
+      // Option 4
+      new Vue({
+        el: "#app",
+        data() {
+          console.log(this, "<<<<this指向vue");
+          return {
+            message: "Hello, Vue!",
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
