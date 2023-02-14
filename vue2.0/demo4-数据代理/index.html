@@ -3,69 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <title>demo</title>
-    <style>
-      p {
-        margin: 5px;
-      }
-    </style>
   </head>
-
   <body>
     <div id="app">
-      <button v-on:click="showToast($event)">alert</button>
-      <button @click="showToast($event,2)">alert2</button>
-      <button @click="showToastx(3)">alert3</button>
-      <a href="http://www.abc.com" @click="showToast($event,4)">a 4</a>
-      <a href="http://www.abc.com" @click.prevent="showToastx(5)">a 5</a>
-
-      <p>Vue中的事件修饰符:</p>
-      <p>1.prevent:阻止默认事件（常用）</p>
-      <p>2.stop:阻止事件冒泡（常用）</p>
-      <p>3.once:事件只触发一次（常用）</p>
-      <p>
-        4.capture:使用事件的捕获模式:#捕获与冒泡相反，是从外向里的触发.仅需要在外部定义@click.capture#
-      </p>
-      <p>
-        5.self:只有event.target是当前操作的元素是才触发事件:一般也是用来阻止冒泡
-        但加在父上，这样点击子不是父的target则不会触发父
-      </p>
-      <p>
-        6.passive:事件的默认行为立即执行，无需等待事件回调执行完毕:一般用在@wheel<滚轮滚动>事件防止卡顿
-      </p>
-      <p>可以连续使用 比如阻止默认事件后再阻止冒泡 @click.prevent.stop</p>
-
-      <br />
-      <input
-        type="text"
-        placeholder="按下回车log提示输入"
-        @keyup.enter="handleKey"
-      />
-      <br />
-      <input type="text" placeholder="自定按键触发" @keyup="handleKeyx" />
-      <p>特殊情况Tab:Tab会直接失去焦点不触发提示,配合keydown即可</p>
-      <input type="text" placeholder="自定按键触发" @keydown="handleKeyx" />
-
-      <p>Vue中常用的按键别名:</p>
-      <p>回车 => enter</p>
-      <p>删除 => delete 捕获"删除"和"退格"键</p>
-      <p>退出 => esc</p>
-      <p>空格 => space</p>
-      <p>换行 => tab</p>
-      <p>上 => up</p>
-      <p>下 => down</p>
-      <p>左 => left</p>
-      <p>右 => right</p>
-      <br />
-      <p>@keyup.keycode不统一不推荐即将淘汰 @keyup.keyname<驼峰转小写-衔接>或组合 例如监听ctrl+y = @keyup.ctrl.y='youfunction'</p>
-      <p>
-        Vue.config.keyCodes.huiche = 13 配置后即可使用 @keyup.huiche
-        //语意不明不推荐
-      </p>
+      <h6>Object.defineProperty</h6>
+      <h1>{{message}}</h1>
+      <h1>{{info}}</h1>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       Vue.config.productionTip = false;
+
+      /**
+       * Object.defineProperty代理
+      let age = 26;
+      let person = {
+        name: "qy",
+        sex: 1,
+      };
+
+      // Object.defineProperty(person, "age", {
+      //   value: 26,
+      //   // 允许遍历到此key
+      //   enumerable: true,
+      //   // 值可以被修改
+      //   writable: true,
+      //   // key可以被删除                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+      //   configurable: true,
+      // });
+
+      // person.age 代理 age
+      Object.defineProperty(person, "age", {
+        get() {
+          return age;
+        },
+        set(value) {
+          age = value
+        }
+      });
+      console.log(person);
+      **/
 
       let vm = new Vue({
         el: "#app",
@@ -75,26 +53,11 @@
             info: "Vue DEMO",
           };
         },
-        methods: {
-          showToast(e, number) {
-            e.stopPropagation();
-            e.preventDefault();
-            console.log(e.target.innerText);
-            console.log(this === vm); //true
-            number = number ? number : 1;
-            alert(number);
-          },
-          showToastx(number) {
-            alert(number);
-          },
-          handleKey(e) {
-            console.log(e.target.value);
-          },
-          handleKeyx(e) {
-            console.log(e.keyCode, "<<<Code", e.key, "<<<Name");
-          },
-        },
       });
+      console.log(vm._data.message, "<<<<vm._data.message");
+      console.log((vm.message = "message proxy"));
+      console.log(vm.message, "<<<<vm.message");
+      console.log(vm._data.message, "<<<<vm._data.message");
     </script>
   </body>
 </html>
