@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+    <style>
+      p {
+        margin: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" v-model="message" />
+      <input type="text" v-model="info" />
+      <!-- XXX -->
+      <!-- <span>{{message.slice(0,5)}} {{info}}</span> -->
+      <!-- <span>{{handle()}}</span> -->
+      <span>{{handle}}</span>
+      <span>{{handle}}</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            message: "Hello",
+            info: "Vue",
+          };
+        },
+        computed: {
+          handle: {
+            get() {
+              console.log("handle<computed>", Date.now());
+              // 触发时机 1.初次 2.依赖变更 -->存储缓存等待1或2的情况
+              return `${this.message.slice(0, 5)} ${this.info}`;
+            },
+            // 触发案例: vm.handle = '111'
+            set(value) {
+              console.log(value, "<<<set");
+              this.message = value.toString();
+            },
+          },
+        },
+        // XXX 无computed缓存机制
+        // methods: {
+        // handle() {
+        //   let { message, info } = this;
+        //   return `${message.slice(0, 5)} ${info}`;
+        // },
+        // },
+      });
+    </script>
+  </body>
+</html>
