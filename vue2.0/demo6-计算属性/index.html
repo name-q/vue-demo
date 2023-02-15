@@ -18,7 +18,7 @@
       <!-- <span>{{message.slice(0,5)}} {{info}}</span> -->
       <!-- <span>{{handle()}}</span> -->
       <span>{{handle}}</span>
-      <span>{{handle}}</span>
+      <span>{{simple}}</span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -45,6 +45,10 @@
               console.log(value, "<<<set");
               this.message = value.toString();
             },
+          },
+          // 简写 - 当只使用get是
+          simple() {
+            return `${this.message.slice(0, 5)} ${this.info}`;
           },
         },
         // XXX 无computed缓存机制
