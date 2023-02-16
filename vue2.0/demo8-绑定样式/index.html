@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+    <style>
+      .basic {
+        width: 100%;
+        height: 20vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        background-color: antiquewhite;
+      }
+
+      .color1 {
+        background-color: pink;
+      }
+      .color2 {
+        background-color: chartreuse;
+      }
+      .color3 {
+        background-color: aqua;
+      }
+
+      .f14 {
+        font-size: 14px;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="basic" :class="classname" @click="handle">classname: {{classname}}</div>
+      <div class="basic" :class="classnames">classnames: {{classnames}}</div>
+      <div class="basic" :class="classnamesobj">classnamesobj: {{classnamesobj}}</div>
+      <div class="basic" :style="styleobj">styleobj: {{styleobj}}</div>
+      <div class="basic" :style="[styleobj,styleobj2]">[styleobj,styleobj2]</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            classname: "color1",
+            classnames: ["f14", "bold", "red"],
+            classnamesobj: {
+              f14: true,
+              bold: true,
+              red: false,
+            },
+            styleobj: {
+              fontSize: "30px",
+            },
+            styleobj2: {
+              color: "#333",
+              height: '50px'
+            },
+          };
+        },
+        methods: {
+          handle() {
+            // let { classname } = this;
+            // if (classname === "color1") return (this.classname = "color2");
+            // if (classname === "color2") return (this.classname = "color3");
+            // return (this.classname = "color1");
+            const colors = ["color1", "color2", "color3"];
+            const index = Math.floor(Math.random() * 3);
+            return (this.classname = colors[index]);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
