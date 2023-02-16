@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+    <style>
+      p {
+        margin: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>{{booleanx}}</p>
+      <button @click="booleanx = !booleanx">reversal</button>
+      <hr />
+
+      <p>{{booleanxy}}</p>
+      <button @click="booleanxy = !booleanxy">reversal</button>
+      <hr />
+
+      <p>{{obj.a}}</p>
+      <button @click="obj.a++">reversal</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            booleanx: true,
+            booleanxy: true,
+            obj: {
+              a: 1,
+              b: 2,
+            },
+          };
+        },
+        // Option 1
+        watch: {
+          booleanx: {
+            // 初始化时执行handler
+            immediate: true,
+            // handler - booleanx发生改变时执行
+            handler(newValue, preValue) {
+              console.log(newValue, "<--new", Date.now(), preValue, "<--pre");
+            },
+          },
+          "obj.a": {
+            handler() {
+              console.log("a change");
+            },
+          },
+          obj: {
+            handler() {
+              console.log("obj change");
+            },
+            // 深度监视 监视obj的key值发生变化
+            deep: true,
+          },
+        },
+      });
+
+      // Option 2
+      vm.$watch("booleanxy", {
+        handler(newValue, preValue) {
+          console.log(newValue, "<<<new", Date.now(), preValue, "<<<pre");
+        },
+      });
+    </script>
+  </body>
+</html>
