@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p><-- v-show display:none --></p>
+      <p v-show="1===1">booleanx:{{booleanx}}</p>
+      <p v-show="booleanx" class="red">{{booleanx}}</p>
+      <p><-- v-if uninstall --></p>
+      <p v-if="booleanx" class="red">{{booleanx}}</p>
+      <button @click="booleanx=0">0</button>
+      <button @click="booleanx=1">1</button>
+
+      <hr />
+
+      <!-- 组合条件DOM不能断 -->
+      <p v-if="count===1">1</p>
+      <p v-else-if="count===2">2</p>
+      <p v-else-if="count===3">3</p>
+      <p v-else>>3</p>
+      <button @click="count++">count++</button>
+
+      <hr />
+
+      <template v-if="true">
+        <p>template不影响DOM结构</p>
+        <p>类似react<></p>
+        <p>在此处可用于满足条件渲染多个内容</p>
+        <p>只能配合v-if不能配合v-show</p>
+      </template>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            booleanx: "1",
+            count: 1,
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
