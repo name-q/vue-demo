@@ -62,15 +62,24 @@
             // 深度监视 监视obj的key值发生变化
             deep: true,
           },
+          // Option 2 - 简写 配置项不需要immediate ｜ deep时
+          booleanxy(newValue, preValue) {
+            console.log(newValue, "<<<new", Date.now(), preValue, "<<<pre");
+          },
         },
       });
 
-      // Option 2
-      vm.$watch("booleanxy", {
-        handler(newValue, preValue) {
-          console.log(newValue, "<<<new", Date.now(), preValue, "<<<pre");
-        },
-      });
+      // // Option 2
+      // vm.$watch("booleanxy", {
+      //   handler(newValue, preValue) {
+      //     console.log(newValue, "<<<new", Date.now(), preValue, "<<<pre");
+      //   },
+      // });
+
+      // // Option 2 - 简写
+      // vm.$watch("booleanxy", function (newValue, preValue) {
+      //   console.log(newValue, "<<<new", Date.now(), preValue, "<<<pre");
+      // });
     </script>
   </body>
 </html>
