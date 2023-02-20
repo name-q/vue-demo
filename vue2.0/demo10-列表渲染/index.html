@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="item in jsonarr" :key="item.id">
+          {{item?.message}} {{item?.info}}
+        </li>
+        <hr />
+        <li v-for="(item,index) in jsonarr" :key="index">
+          {{item?.message}} key: {{index}}
+        </li>
+        <hr />
+        <li v-for="(value,key,index) of json">{{key}}: {{value}}-{{index}}</li>
+        <!-- 还可以便利string | number 从0开始累增 -->
+      </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            jsonarr: [
+              {
+                id: 10,
+                message: "x",
+                info: ">1",
+              },
+              {
+                id: 20,
+                message: "xx",
+                info: ">2",
+              },
+              {
+                id: 30,
+                message: "xxx",
+                info: ">3",
+              },
+              {
+                id: 40,
+                message: "xxxxx",
+                info: ">4",
+              },
+            ],
+
+            json: {
+              name: "qy",
+              age: 27,
+            },
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
