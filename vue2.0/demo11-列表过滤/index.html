@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" placeholder="模糊搜索" v-model="search" />
+      <button @click="sort=2">生序</button>
+      <button @click="sort=0">默认</button>
+      <button @click="sort=1">降序</button>
+      <ul>
+        <li v-for="item in result" :key="item.id">
+          {{item?.message}} {{item?.info}}
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            // 排序
+            sort: 0,
+            // 搜索
+            search: "",
+            // 元数据
+            jsonarr: [
+              {
+                id: 10,
+                message: "abc",
+                info: ">1",
+              },
+              {
+                id: 20,
+                message: "bcd",
+                info: ">2",
+              },
+              {
+                id: 30,
+                message: "cde",
+                info: ">3",
+              },
+              {
+                id: 40,
+                message: "def",
+                info: ">4",
+              },
+            ],
+          };
+        },
+        computed: {
+          // 搜索结果
+
+          result() {
+            let { jsonarr, search, sort } = this;
+            let result = jsonarr;
+
+            // 搜索
+            if (search) {
+              result = jsonarr.filter((i) => i.message.includes(search));
+            }
+
+            // 排序
+            if (sort) {
+              result = result.sort((i1, i2) => {
+                return sort === 1 ? i2.id - i1.id : i1.id - i2.id;
+              });
+            }
+
+            return result;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
