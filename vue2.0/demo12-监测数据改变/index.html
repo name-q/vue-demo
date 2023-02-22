@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <button @click="addErr">Increase of error key</button>
+      <button @click="addCorrect">Increase of correct key</button>
+
+      <p>a:{{obj.a}}</p>
+      <p>b:{{obj.b}}</p>
+      <p>c:{{obj.c}}</p>
+      <p>d:{{obj.d}}</p>
+
+      <hr />
+
+      <ul>
+        <li v-for="item in jsonarr" :key="item.id">name:{{item.name}}</li>
+      </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      let vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            obj: {
+              a: 1,
+              b: 2,
+            },
+            jsonarr: [
+              {
+                id: 1,
+                name: "name1",
+              },
+              {
+                id: 2,
+                name: "name2",
+              },
+              {
+                id: 3,
+                name: "name3",
+              },
+            ],
+          };
+        },
+        methods: {
+          addErr() {
+            this.obj.c = 3;
+            console.log(vm._data.obj, "<<<<c不存在reactiveGetter/Setter");
+            this.jsonarr[3] = { id: 4, name: "name4" };
+            console.log(
+              vm._data.jsonarr,
+              "<<<<jsonarr[3]不存在reactiveGetter/Setter"
+            );
+          },
+          addCorrect() {
+            // Vue.set(this.obj, "d", 4);
+            this.$set(this.obj, "d", 4);
+            console.log(vm._data.obj, "<<<<obj");
+            // https://v2.cn.vuejs.org/v2/guide/list.html#%E5%8F%98%E6%9B%B4%E6%96%B9%E6%B3%95
+            this.jsonarr.push({ id: 4, name: "name4" });
+            // this.$set(this.jsonarr, 3, { id: 4, name: "name4" });
+            console.log(vm._data.jsonarr, "<<<<jsonarr");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
