@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>个人信息表单</title>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- @submit.prevent -> methods -->
+    <form @submit.prevent="submitForm">
+      <label for="name">姓名：</label>
+      <!-- trim -->
+      <input id="name" v-model.trim="name" type="text" required><br><br>
+      
+      <label for="gender">性别：</label>
+      <label for="male">男</label>
+      <input id="male" type="radio" value="male" v-model="gender" required>
+      <label for="female">女</label>
+      <input id="female" type="radio" value="female" v-model="gender" required><br><br>
+      
+      <label for="email">邮箱：</label>
+      <input id="email" v-model="email" type="email" required><br><br>
+      
+      <label for="phone">电话：</label>
+      <input id="phone" v-model="phone" type="tel" required><br><br>
+      
+      <label for="address">地址：</label>
+      <select id="address" v-model="address" required>
+        <option value="">请选择</option>
+        <option value="北京">北京</option>
+        <option value="上海">上海</option>
+        <option value="广州">广州</option>
+        <option value="深圳">深圳</option>
+        <option value="杭州">杭州</option>
+        <option value="成都">成都</option>
+        <option value="重庆">重庆</option>
+      </select><br><br>
+      
+      <label for="message">留言：</label>
+      <!-- v-model.lazy失去焦点再更新data -->
+      <textarea id="message" v-model.lazy="message" required></textarea><br><br>
+      
+      <label>爱好：</label><br>
+      <label for="reading">阅读</label>
+      <input id="reading" type="checkbox" value="阅读" v-model="hobbies">
+      <label for="music">音乐</label>
+      <input id="music" type="checkbox" value="音乐" v-model="hobbies">
+      <label for="movie">电影</label>
+      <input id="movie" type="checkbox" value="电影" v-model="hobbies">
+      <label for="sports">运动</label>
+      <input id="sports" type="checkbox" value="运动" v-model="hobbies">
+      
+      <button type="submit">提交</button>
+    </form>
+  </div>
+  
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        name: '',
+        gender: 'male',
+        email: '',
+        phone: '',
+        address: '',
+        message: '',
+        hobbies: ['阅读']
+      },
+      methods: {
+        submitForm() {
+          console.log(this.name, this.gender, this.email, this.phone, this.address, this.message, this.hobbies);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
