@@ -6,6 +6,7 @@
   </head>
   <body>
     <div id="app">
+      <!-- 如定义长指令v-xxx-yyy-zzz使用 - 分割单词不要使用坨峰写法，directives中使用string 'v-xxx-yyy-zzz':{bind(){...} || 'v-xxx-yyy-zzz':function(e,b){...} -->
       <p>自定义指令v-big将输入的变量放大10倍</p>
       <div v-big="count"></div>
       <div>当前:{{count}}</div>
@@ -17,6 +18,24 @@
 
     <script>
       Vue.config.productionTip = false;
+
+      // 实现一个全局指令focus
+      Vue.directive("focus", {
+        // 指令绑定虚拟DOM时执行
+        bind(element, binding) {
+          element.value = binding.value;
+        },
+        // 插入真实DOM后
+        inserted(element, binding) {
+          element.focus();
+        },
+        // 指令模板被重新解析
+        update(element, binding) {
+          element.value = binding.value;
+        },
+      });
+
+      // Vue.directive('big',function(e,d){...})
 
       const app = new Vue({
         el: "#app",
@@ -36,23 +55,6 @@
               // element.focus();
             },
           */
-          focus: {
-            // 与虚拟DOM绑定时执行
-            bind(element, binding) {
-              console.log("bind>>>", element, binding);
-              element.value = binding.value;
-            },
-            // 插入真实DOM后
-            inserted(element, binding) {
-              console.log("inserted>>>", element, binding);
-              element.focus();
-            },
-            // 指令模板被重新解析
-            update(element, binding) {
-              console.log("update>>>", element, binding);
-              element.value = binding.value;
-            },
-          },
         },
       });
     </script>
