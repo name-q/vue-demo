@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div v-pre v-once>v-pre跳过编译{{count}}--作为优化项</div>
+      <div>{{count}}</div>
+      <button @click="count++">++</button>
+    </div>
+
+    <script>
+      Vue.config.productionTip = false;
+
+      const app = new Vue({
+        el: "#app",
+        data: {
+          count: 1,
+        },
+      });
+    </script>
+  </body>
+</html>
