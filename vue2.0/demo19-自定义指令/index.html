@@ -10,6 +10,9 @@
       <div v-big="count"></div>
       <div>当前:{{count}}</div>
       <button @click="count++">++</button>
+      <hr />
+      <p>自定义指令v-focus使得绑定的input获取焦点</p>
+      <input v-focus="count" />
     </div>
 
     <script>
@@ -20,10 +23,35 @@
         data: {
           count: 1,
         },
+        // 指令与虚拟DOM绑定时执行
         directives: {
           big(element, binding) {
             console.log(element, "<<<<element", binding, "<<<<binding");
             element.innerText = binding.value * 10;
+          },
+          /*
+            focus(element, binding) {
+              element.value = binding.value;
+              // 不生效原因： vue未挂载DOM就执行了element.focus()
+              // element.focus();
+            },
+          */
+          focus: {
+            // 与虚拟DOM绑定时执行
+            bind(element, binding) {
+              console.log("bind>>>", element, binding);
+              element.value = binding.value;
+            },
+            // 插入真实DOM后
+            inserted(element, binding) {
+              console.log("inserted>>>", element, binding);
+              element.focus();
+            },
+            // 指令模板被重新解析
+            update(element, binding) {
+              console.log("update>>>", element, binding);
+              element.value = binding.value;
+            },
           },
         },
       });
