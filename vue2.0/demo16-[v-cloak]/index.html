@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <p>未做处理的:</p>
+      <div>{{name}}</div>
+
+      <br />
+      <p>处理的:</p>
+      <div v-cloak>{{name}},vue加载后会删除dom中的v-cloak</div>
+    </div>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <!-- 条件1. js代码需放在主要显示的DOM后以免造成头部阻塞 -->
+    <script>
+      // 延迟5秒后加载JavaScript代码
+      setTimeout(function () {
+        var script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js";
+        document.body.appendChild(script);
+
+        setTimeout(() => {
+          const app = new Vue({
+            el: "#app",
+            data: {
+              name: "延迟5秒加载vue模拟网络环境问题 利用v-cloak和样式防止页面出现name变量",
+            },
+          });
+        }, 1000);
+      }, 5000);
+    </script>
+  </body>
+</html>
