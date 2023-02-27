@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{msg}}</p>
+      <Com1></Com1>
+      <Com2></Com2>
+      <p>多个自闭合标签只会渲染第一个-在无脚手架时-</p>
+      <Com2 />
+      <Com2 />
+      <Com2 />
+      <Com2 />
+      <global-com></global-com>
+    </div>
+    <div id="root" style="background: red">
+      <p>{{msg}}</p>
+      <global-com></global-com>
+    </div>
+
+    <script>
+      Vue.config.productionTip = false;
+
+      // 简写 -不用Vue.extend
+      const Com1 = {
+        // 在开发者工具中显示的名字 不影响常规写法
+        name: "Com1_Dev",
+        // data 必须写函数防止被公用干扰
+        data() {
+          return {
+            name: "Com1",
+          };
+        },
+        // template不可用<></>格式
+        template: `
+          <div>
+            <hr/>
+            <h1>{{name}}</h1>
+          </div>
+        `,
+      };
+
+      const Com2 = Vue.extend({
+        data() {
+          return {
+            name: "Com2",
+          };
+        },
+        template: `
+          <div>
+            <hr/>
+            <h2>{{name}}</h2>
+          </div>
+        `,
+      });
+
+      // 全局组件
+      const GlobalComponents = Vue.extend({
+        data() {
+          return {
+            name: "Global Components",
+          };
+        },
+        template: `
+          <div>
+            <p>{{name}}</p>
+          </div>
+        `,
+      });
+
+      // 全局注册  --无脚手架情况使用大驼峰报错 ...
+      // Vue.component("GlobalCom", GlobalComponents);
+      Vue.component("global-com", GlobalComponents);
+
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "hello app",
+        },
+        // 局部组件局部注册
+        components: {
+          Com1,
+          Com2,
+        },
+      });
+
+      new Vue({
+        el: "#root",
+        data: {
+          msg: "hello root",
+        },
+      });
+    </script>
+  </body>
+</html>
