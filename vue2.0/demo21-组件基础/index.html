@@ -5,17 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
-    <div id="app">
-      <p>{{msg}}</p>
-      <Com1></Com1>
-      <Com2></Com2>
-      <p>多个自闭合标签只会渲染第一个-在无脚手架时-</p>
-      <Com2 />
-      <Com2 />
-      <Com2 />
-      <Com2 />
-      <global-com></global-com>
-    </div>
+    <div id="app"></div>
     <div id="root" style="background: red">
       <p>{{msg}}</p>
       <global-com></global-com>
@@ -75,6 +65,27 @@
       // Vue.component("GlobalCom", GlobalComponents);
       Vue.component("global-com", GlobalComponents);
 
+      // 组件嵌套 - 父子组件
+      const app = {
+        template: `
+        <div>
+          <p>{{msg}}</p>
+          <Com1></Com1>
+          <Com2></Com2>
+          <p>多个自闭合标签只会渲染第一个-在无脚手架时-</p>
+          <Com2 />
+          <Com2 />
+          <Com2 />
+          <Com2 />
+          <global-com></global-com>
+        </div>
+        `,
+        components: {
+          Com1,
+          Com2,
+        },
+      };
+      
       new Vue({
         el: "#app",
         data: {
@@ -82,9 +93,9 @@
         },
         // 局部组件局部注册
         components: {
-          Com1,
-          Com2,
+          app,
         },
+        template: "<app/>",
       });
 
       new Vue({
