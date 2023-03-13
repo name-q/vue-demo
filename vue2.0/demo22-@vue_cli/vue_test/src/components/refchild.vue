@@ -12,7 +12,7 @@ export default {
       console.log(1);
     },
   },
-  data: function () {
+  data() {
     return {
       msg: "hello ref child",
     };
