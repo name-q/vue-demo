@@ -8,6 +8,7 @@
 
 <script>
 import RefChild from "./refchild.vue";
+import { getNow } from "./mixin";
 
 export default {
   name: "RefView",
@@ -25,12 +26,7 @@ export default {
   components: {
     RefChild,
   },
-  methods: {
-    handleClick() {
-      console.log("获取到自身的ref", this.$refs.title);
-      console.log("获取到自组件的ref", this.$refs.child, "为子组件的VC");
-    },
-  },
+  mixins: [getNow],
 };
 </script>
 

@@ -5,18 +5,16 @@
 </template>
 
 <script>
+import { getNow } from "./mixin";
+
 export default {
   name: "RefChildView",
-  methods: {
-    handleClick() {
-      console.log(1);
-    },
-  },
   data() {
     return {
       msg: "hello ref child",
     };
   },
+  mixins: [getNow],
 };
 </script>
 
