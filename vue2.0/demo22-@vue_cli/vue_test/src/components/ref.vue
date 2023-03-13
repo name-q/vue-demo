@@ -1,6 +1,7 @@
 <template>
   <div class="hello" @click.stop="handleClick">
     <h1 v-text="msg" ref="title"></h1>
+    <h2 v-text="msgx" ref="title"></h2>
     <RefChild ref="child" />
   </div>
 </template>
@@ -10,8 +11,16 @@ import RefChild from "./refchild.vue";
 
 export default {
   name: "RefView",
+  // props: ['msg', 'msgx'],
   props: {
-    msg: String,
+    msg: {
+      type: String,
+      required: true,
+    },
+    msgx: {
+      type: String,
+      default: "hello props",
+    },
   },
   components: {
     RefChild,
