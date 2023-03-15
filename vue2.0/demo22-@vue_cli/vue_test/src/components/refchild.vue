@@ -19,11 +19,13 @@ export default {
   mixins: [getNow],
   methods: {
     handleClickChild() {
-      this.$emit("propsFunction", Date.now());
+      // this.$emit("propsFunction", Date.now());
+      this.$bus.$emit("propsFunction", Date.now());
     },
     unbind() {
       // 解绑props function
-      this.$off("propsFunction");
+      // this.$off("propsFunction");
+      this.$bus.$off("propsFunction");
       // 解绑多个 props function
       // this.$off(["fun1", "fun2"]);
       // 解绑所有 props function

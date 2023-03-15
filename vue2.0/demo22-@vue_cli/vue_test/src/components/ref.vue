@@ -32,7 +32,8 @@ export default {
     RefChild,
   },
   mounted() {
-    this.$refs.child.$on("propsFunction", this.demo);
+    // this.$refs.child.$on("propsFunction", this.demo);
+    this.$bus.$on("propsFunction", this.demo);
     // 只允许触发一次
     // this.$refs.child.$once("propsFunction", this.demo);
   },
