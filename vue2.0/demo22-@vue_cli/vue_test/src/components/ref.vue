@@ -1,7 +1,7 @@
 <template>
   <div class="hello" @click.stop="handleClick">
     <h1 v-text="msg" ref="title"></h1>
-    <h2 v-text="msgx" ref="title"></h2>
+    <h2 v-text="msgx" ref="title" class="info"></h2>
     <RefChild ref="child" />
   </div>
 </template>
@@ -31,8 +31,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="less">
 .hello {
   background-color: antiquewhite;
+  .info {
+    color: aquamarine;
+  }
 }
 </style>
