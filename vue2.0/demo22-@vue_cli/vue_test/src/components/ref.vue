@@ -2,6 +2,11 @@
   <div class="hello" @click.stop="handleClick">
     <h1 v-text="msg" ref="title"></h1>
     <h2 v-text="msgx" ref="title" class="info"></h2>
+    <!-- 方案1 直接追加props -->
+    <!-- <RefChild ref="child" v-on:propsFunction="demo" />
+    <RefChild ref="child" @propsFunction.once="demo" /> -->
+
+    <!-- 方案2 ref挂载props -->
     <RefChild ref="child" />
   </div>
 </template>
@@ -25,6 +30,16 @@ export default {
   },
   components: {
     RefChild,
+  },
+  mounted() {
+    this.$refs.child.$on("propsFunction", this.demo);
+    // 只允许触发一次
+    // this.$refs.child.$once("propsFunction", this.demo);
+  },
+  methods: {
+    demo(now) {
+      console.log(" >>>>father demo function ", now);
+    },
   },
   mixins: [getNow],
 };

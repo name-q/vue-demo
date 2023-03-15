@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1 v-text="msg" ref="info"></h1>
+    <button @click.stop="handleClickChild">propsFunction</button>
   </div>
 </template>
 
@@ -15,6 +16,11 @@ export default {
     };
   },
   mixins: [getNow],
+  methods: {
+    handleClickChild() {
+      this.$emit("propsFunction", Date.now());
+    },
+  },
 };
 </script>
 
