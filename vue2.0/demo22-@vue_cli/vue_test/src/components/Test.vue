@@ -7,10 +7,17 @@
     <transition name="xxx" appear>
       <h1 v-show="isShow" class="go">animation name</h1>
     </transition>
+
+    <transition appear name="animate__animated animate__bounce" enter-active-class="animate__swing"
+      leave-active-class="animate__backOutUp">
+      <h1 v-show="isShow">animation animate.css</h1>
+    </transition>
   </div>
 </template>
 
 <script>
+import 'animate.css';
+
 export default {
   name: "Test",
   data() {
