@@ -12,7 +12,7 @@ export default {
   methods: {
     async getstudents() {
       try {
-        let result = await axios.get('http://localhost:8080/students')
+        let result = await axios.get('http://localhost:8080/api/students')
         console.log(result, '<<<')
       } catch (error) {
         console.log(error, '<<<err')
